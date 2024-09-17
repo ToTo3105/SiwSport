@@ -1,0 +1,36 @@
+main{
+    text-align: center;
+    padding: 10px;
+}
+
+main a:visited {
+    color: black;
+}
+
+main a:link{
+    color: black;
+}
+
+main a:hover{
+    font-size: 1.1em;
+    color: red;
+}
+
+main h2{
+    color: red;
+}
+
+
+.contenitore{
+    border: 5px outset;
+    width: 50%;
+    padding: 10px;
+    margin: auto;
+}
+
+.contenitore ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}

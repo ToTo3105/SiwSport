@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squadra</title>
+    <link rel="stylesheet" th:href="@{/body.css}">
+    <link rel="stylesheet" th:href="@{/header.css}">
+    <link rel="stylesheet" th:href="@{/nav.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+</head>
+<body>
+    <header>
+        <h1>siwSport</h1>
+    </header>
+    <nav>
+        <ul class="nav-left">
+            <li><a href="/squadra">Torna indietro</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li th:if="${userDetails == null}"><a href="/login">Login</a></li>
+            <li th:if="${userDetails != null}"><p th:text="'Benvenuto ' + ${userDetails.username} + '.'">Benvenuto</p></li>
+            <li th:if="${userDetails != null}"><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>    
+    <main>
+        <div class="contenitore">
+            <h2>Squadra:</h2>
+            <div>
+                Nome: 
+                <span th:if="${userRole!=null && userRole.equals('AMMINISTRATORE')}">
+                    <span th:if="${squadra.nome==null || squadra.nome.isEmpty()}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newNome'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(squadra.nome==null || squadra.nome.isEmpty())}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newNome'}" th:text="${squadra.nome}">Modifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('AMMINISTRATORE'))}">
+                    <span th:if="${!(squadra.nome==null || squadra.nome.isEmpty())}" th:text="${squadra.nome}"></span>
+                </span>
+            </div>
+            <div>
+                Anno fondazione: 
+                <span th:if="${userRole!=null && userRole.equals('AMMINISTRATORE')}">
+                    <span th:if="${squadra.annoFondazione==null}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newAnnoFondazione'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(squadra.annoFondazione==null)}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newAnnoFondazione'}" th:text="${squadra.annoFondazione}"></a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('AMMINISTRATORE'))}">
+                    <span th:if="${!(squadra.annoFondazione==null)}" th:text="${squadra.annoFondazione}"></span>
+                </span>
+            </div>
+            <div>
+                Sede:
+                <span th:if="${userRole!=null && userRole.equals('AMMINISTRATORE')}">
+                    <span th:if="${squadra.indirizzoSede==null || squadra.indirizzoSede.isEmpty()}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newIndirizzoSede'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(squadra.indirizzoSede==null || squadra.indirizzoSede.isEmpty())}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newIndirizzoSede'}" th:text="${squadra.indirizzoSede}"></a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('AMMINISTRATORE'))}">
+                    <span th:if="${!(squadra.indirizzoSede==null || squadra.indirizzoSede.isEmpty())}" th:text="${squadra.indirizzoSede}"></span>
+                </span>
+            </div>
+            <div>
+                Presidente:
+                <span th:if="${userRole!=null && userRole.equals('AMMINISTRATORE')}">
+                    <span th:if="${squadra.presidente==null}">
+                        <a th:href="@{'/amministratore/squadra/'+${squadra.id}+'/newPresidente'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(squadra.presidente==null)}">
+                        <a th:href="@{'/squadra/'+${squadra.id}+'/presidente'}" th:text="${squadra.presidente.nome}+' '+${squadra.presidente.cognome}"></a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('AMMINISTRATORE'))}">
+                    <span th:if="${!(squadra.presidente==null)}">
+                        <a th:href="@{'/squadra/'+${squadra.id}+'/presidente'}" th:text="${squadra.presidente.nome}+' '+${squadra.presidente.cognome}"></a>
+                    </span>
+                </span>
+            </div>
+            <div th:if="${squadra.giocatori.isEmpty()}">Non ci sono giocatori nel sistema</div>
+            <div th:if="${!squadra.giocatori.isEmpty()}">
+                <h3>Lista Giocatori: </h3>
+                <ul>
+                    <li th:each="giocatore : ${squadra.giocatori}">
+                        <a th:href="@{'/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}}"
+                            th:text="${giocatore.nome}+' '+${giocatore.cognome}">Nome e Cognome</a>
+                    </li>
+                </ul>
+            </div>
+            <div th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails.username.equals(usernamePresidente)}">
+                <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/newGiocatore'}">Aggiungi giocatore</a>
+            </div>
+            <div th:if="${userRole!=null && userRole.equals('AMMINISTRATORE')}">
+                <form th:action="@{'/amministratore/squadra/'+${squadra.id}+'/elimina'}" method="post">
+                    <button type="submit">Elimina</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h3>By Lore'</h3>
+    </footer>
+</body>
+</html>

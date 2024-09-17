@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squadre</title>
+    <link rel="stylesheet" th:href="@{/body.css}">
+    <link rel="stylesheet" th:href="@{/header.css}">
+    <link rel="stylesheet" th:href="@{/nav.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+</head>
+<body>
+    <header>
+        <h1>siwSport</h1>
+    </header>
+    <nav>
+        <ul class="nav-left"></ul>
+        </ul>
+        <ul class="nav-right">
+            <li th:if="${userDetails == null}"><a href="/login">Login</a></li>
+            <li th:if="${userDetails != null}"><p th:text="'Benvenuto ' + ${userDetails.username} + '.'">Benvenuto</p></li>
+            <li th:if="${userDetails != null}"><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="contenitore">
+            <h2>Squadre:</h2>
+            <div th:if="${squadre==null || squadre.isEmpty()}">Non ci sono squadre nel sistema</div>
+            <ul th:if="${!(squadre==null || squadre.isEmpty())}">
+                <li th:each="squadra : ${squadre}">
+                    <a th:href="@{'/squadra'+'/'+${squadra.id}}" th:text="${squadra.nome}"></a><br>
+                </li>
+            </ul>
+            <div th:if="${userDetails!=null && userRole!=null && userRole.equals('AMMINISTRATORE')}">
+                <a href="/amministratore/squadra/newSquadra">Aggiungi squadra</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h3>By Lore'</h3>
+    </footer>
+</body>
+</html>

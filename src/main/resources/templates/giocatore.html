@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giocatore</title>
+    <link rel="stylesheet" th:href="@{/body.css}">
+    <link rel="stylesheet" th:href="@{/header.css}">
+    <link rel="stylesheet" th:href="@{/nav.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+</head>
+<body>
+    <header>
+        <h1>siwSport</h1>
+    </header>
+    <nav>
+        <ul class="nav-left">
+            <li><a href="/squadra">Torna indietro</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li th:if="${userDetails == null}"><a href="/login">Login</a></li>
+            <li th:if="${userDetails != null}"><p th:text="'Benvenuto ' + ${userDetails.username} + '.'">Benvenuto</p></li>
+            <li th:if="${userDetails != null}"><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>    
+    <main>
+        <div class="contenitore">
+            <h2 th:text="'Giocatore di '+${squadra.nome}"></h2>
+            <div>
+                Nome:
+                <span th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                    <span th:if="${giocatore.nome==null || giocatore.nome.isEmpty()}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newNome'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(giocatore.nome==null || giocatore.nome.isEmpty())}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newNome'}" th:text="${giocatore.nome}">Modfifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente))}">
+                    <span th:if="${!(giocatore.nome==null || giocatore.nome.isEmpty())}" th:text="${giocatore.nome}"></span>
+                </span>
+            </div>
+            <div>
+                Cognome:
+                <span th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                    <span th:if="${giocatore.cognome==null || giocatore.cognome.isEmpty()}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newCognome'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(giocatore.cognome==null || giocatore.cognome.isEmpty())}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newCognome'}" th:text="${giocatore.cognome}">Modfifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente))}">
+                    <span th:if="${!(giocatore.cognome==null || giocatore.cognome.isEmpty())}" th:text="${giocatore.cognome}"></span>
+                </span>
+            </div>
+            <div>
+                Data nascita:
+                <span th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                    <span th:if="${giocatore.dataNascita==null}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newDataNascita'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(giocatore.dataNascita==null)}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newDataNascita'}" th:text="${giocatore.dataNascita}">Modfifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente))}">
+                    <span th:if="${!(giocatore.dataNascita==null)}" th:text="${giocatore.dataNascita}"></span>
+                </span>
+            </div>
+            <div>
+                Luogo nascita:
+                <span th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                    <span th:if="${giocatore.luogoNascita==null || giocatore.luogoNascita.isEmpty()}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newLuogoNascita'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(giocatore.luogoNascita==null || giocatore.luogoNascita.isEmpty())}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newLuogoNascita'}" th:text="${giocatore.luogoNascita}">Modfifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente))}">
+                    <span th:if="${!(giocatore.luogoNascita==null || giocatore.luogoNascita.isEmpty())}" th:text="${giocatore.luogoNascita}"></span>
+                </span>
+            </div>
+            <div>
+                Inizio contratto:
+                <span th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                    <span th:if="${giocatore.contratto==null || giocatore.contratto.inizio==null}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newInizioContratto'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(giocatore.contratto==null || giocatore.contratto.inizio==null)}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newInizioContratto'}" th:text="${giocatore.contratto.inizio}">Modfifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente))}">
+                    <span th:if="${!(giocatore.contratto==null || giocatore.contratto.inizio==null)}" th:text="${giocatore.contratto.inizio}"></span>
+                </span>
+            </div>
+            <div>
+                Fine contratto:
+                <span th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                    <span th:if="${giocatore.contratto==null || giocatore.contratto.fine==null}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newFineContratto'}">Aggiungi</a>
+                    </span>
+                    <span th:if="${!(giocatore.contratto==null || giocatore.contratto.fine==null)}">
+                        <a th:href="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/newFineContratto'}" th:text="${giocatore.contratto.fine}">Modfifica</a>
+                    </span>
+                </span>
+                <span th:if="${!(userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente))}">
+                    <span th:if="${!(giocatore.contratto==null || giocatore.contratto.fine==null)}" th:text="${giocatore.contratto.fine}"></span>
+                </span>
+            </div>
+            <div th:if="${userRole!=null && userRole.equals('PRESIDENTE') && userDetails!=null && userDetails.username.equals(usernamePresidente)}">
+                <form th:action="@{'/presidente/squadra/'+${squadra.id}+'/giocatore/'+${giocatore.id}+'/elimina'}" method="post">
+                    <button type="submit">Elimina</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h3>By Lore'</h3>
+    </footer>
+</body>
+</html>

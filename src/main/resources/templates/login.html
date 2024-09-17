@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<htmls>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/body.css}">
+    <link rel="stylesheet" th:href="@{/header.css}">
+    <link rel="stylesheet" th:href="@{/nav.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+</head>
+<body>
+    <header>
+        <h1>siwSport</h1>
+    </header>
+    <nav>
+        <ul class="nav-left">
+            <li><a href="/squadra">Torna indietro</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li th:if="${userDetails == null}"><a href="/login">Login</a></li>
+            <li th:if="${userDetails != null}"><p th:text="'Benvenuto ' + ${userDetails.username} + '.'">Benvenuto</p></li>
+            <li th:if="${userDetails != null}"><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>    
+    <main>
+        <div class="contenitore">
+            <h2>Login:</h2>
+            <form th:action="@{/login}" method="post">
+                <label>Username: </label> <input type="text" name="username"/><br>
+                <label>Password: </label> <input type="password" name="password"/><br>
+            <button type="submit">Conferma</button>
+        </form>
+        <div>
+            <span th:if="${errorLogin}" th:text="${errorLogin}">Codice errore</span>
+        </div>
+        </div>
+    </main>
+    <footer>
+        <h3>By Lore'</h3>
+    </footer> 
+</body>
+</html>
